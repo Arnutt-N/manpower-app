@@ -3,7 +3,7 @@
 **Feature Branch**: `001-multi-agent-chat`
 **Created**: 2025-10-07
 **Status**: Draft
-**Input**: User description: "Build a manpower-app following @manpower-app.md - A full-stack Next.js chat application powered by a multi-agent system using LangGraph and LangChain with GLM-4.6 API"
+**Input**: User description: "Build a Next.js application following @manpower-app.md"
 
 ## User Scenarios & Testing *(mandatory)*
 
