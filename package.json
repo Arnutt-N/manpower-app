@@ -1,0 +1,58 @@
+{
+  "name": "manpower-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arnutt-N/manpower-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arnutt-N/manpower-app/issues"
+  },
+  "homepage": "https://github.com/Arnutt-N/manpower-app#readme",
+  "dependencies": {
+    "@langchain/community": "^0.3.57",
+    "@langchain/core": "^0.3.78",
+    "@langchain/langgraph": "^0.4.9",
+    "axios": "^1.12.2",
+    "chromadb": "^3.0.17",
+    "langchain": "^0.3.35",
+    "next": "^15.5.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^24.7.0",
+    "@types/react": "^19.2.2",
+    "@types/uuid": "^10.0.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "@vitest/ui": "^3.2.4",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.37.0",
+    "eslint-config-next": "^15.5.4",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

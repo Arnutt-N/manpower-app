@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Command spec -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -ExpandProperty Source)",
+      "Bash($env:PATH -split ';')",
+      "Bash(Select-String -Pattern \"specify\")",
+      "Bash(Test-Path \".specify/scripts/powershell/spec.ps1\")",
+      "Bash(echo $PATH)",
+      "Bash(pwsh:*)",
+      "Bash(test:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(npm search:*)",
+      "Bash(npm view:*)",
+      "Bash(npx tailwindcss init:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
