@@ -4,7 +4,45 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This repository uses the **Specify Framework** - a spec-driven development workflow that organizes feature development through structured documentation and PowerShell automation scripts. Features are developed in isolated branches with comprehensive documentation before implementation.
+This is a **Next.js 15 Multi-Agent Chat Application** that implements AI-powered conversations with intelligent routing, knowledge retrieval, and tool execution capabilities. The project uses the **Specify Framework** for spec-driven development workflow.
+
+**Core Architecture**: Multi-agent system using LangGraph with LangChain orchestration, GLM-4.6 LLM, persistent memory, RAG pipeline, and MCP integration.
+
+## Common Development Commands
+
+### Development Server
+```bash
+npm run dev          # Start Next.js dev server with Turbopack
+npm run build        # Build for production
+npm run start        # Start production server
+```
+
+### Testing
+```bash
+npm test             # Run Vitest unit tests
+npm run test:ui      # Run Vitest with UI
+npm run test:coverage # Generate coverage report
+npm run test:e2e     # Run Playwright end-to-end tests
+npm run test:e2e:ui  # Run Playwright with UI
+```
+
+### Code Quality
+```bash
+npm run lint         # Run ESLint
+```
+
+### Specify Framework Scripts
+*(Note: Requires PowerShell execution policy adjustment on Windows)*
+```powershell
+# Create new feature branch and specification
+./.specify/scripts/powershell/create-new-feature.ps1 "feature description"
+
+# Setup implementation plan for current feature
+./.specify/scripts/powershell/setup-plan.ps1
+
+# Check workflow prerequisites
+./.specify/scripts/powershell/check-prerequisites.ps1 -Json
+```
 
 ## Workflow Architecture
 
@@ -130,7 +168,57 @@ The framework uses intelligent path resolution:
    - Git repos: Use current branch name
    - Non-git repos: Use `SPECIFY_FEATURE` environment variable or find latest numbered feature directory
 
+## Architecture Overview
+
+### Multi-Agent System Architecture
+
+The application implements a sophisticated multi-agent orchestration system:
+
+**Core Components**:
+- **LangGraph State Machine**: Coordinates agent routing and state persistence
+- **Router Agent**: Intelligently routes requests to appropriate specialist agents
+- **Chat Agent**: Handles general conversational interactions
+- **RAG Agent**: Manages knowledge retrieval and document-based responses
+- **Tool Agent**: Executes external tools and APIs
+
+**Data Flow**: User Input → Router Agent → Specialist Agent → Tool/RAG Execution → Response Synthesis → User
+
+### Technology Stack
+
+- **Frontend**: Next.js 15 + React 19 + TypeScript + TailwindCSS 4.x
+- **AI/Orchestration**: LangChain + LangGraph + GLM-4.6 API
+- **Memory**: LangGraph persistent state + ChromaDB vector store
+- **Testing**: Vitest (unit) + Playwright (E2E)
+- **Development**: TypeScript strict mode enabled
+
+### Project Structure Patterns
+
+This is a **Web Application** project type following the Specify framework:
+
+```
+src/app/           # Next.js App Router pages and API routes
+lib/               # Core application logic (agents, memory, tools)
+components/        # React UI components
+tests/             # Test suites (unit, integration, E2E)
+```
+
+**Key Files for Multi-Agent System**:
+- `lib/agents/graph.ts` - LangGraph state machine definition
+- `lib/agents/router.ts` - Intelligent routing logic
+- `lib/agents/chat.ts` - Conversational agent implementation
+- `lib/agents/rag.ts` - RAG pipeline agent
+- `lib/agents/tools.ts` - Tool execution agent
+- `lib/memory.ts` - Session state persistence
+- `lib/llm.ts` - GLM-4.6 LLM configuration
+- `lib/rag/chain.ts` - RAG retrieval chain
+- `lib/mcp/client.ts` - MCP integration client
+
 ## Development Guidelines
+
+### Environment Configuration
+
+Required environment variables:
+- `GLM_API_KEY` - GLM-4.6 API access key
 
 ### Constitution-First Development
 
@@ -151,49 +239,48 @@ If the constitution specifies test-first development:
 
 Tests are **OPTIONAL** unless explicitly requested in the feature specification.
 
-### Project Structure Patterns
+## TypeScript Configuration
 
-The framework supports three project types (defined in `plan.md`):
+**Strict Mode**: The project uses TypeScript's strict mode with additional safety checks:
+- `noUncheckedIndexedAccess` - Prevents undefined access to array elements
+- `noImplicitOverride` - Requires explicit override for inherited methods
+- `noUnusedLocals` and `noUnusedParameters` - Prevents unused code
+- `noPropertyAccessFromIndexSignature` - Enforces type-safe property access
 
-**Single Project** (default):
-```
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+**Path Mapping**: Use `@/*` for imports from the `src/` directory.
 
-tests/
-├── contract/
-├── integration/
-└── unit/
-```
+## Multi-Agent Implementation Notes
 
-**Web Application**:
-```
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
+### Agent Development Patterns
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-```
+When implementing new agents or modifying existing ones:
 
-**Mobile + API**:
-```
-api/
-└── [same as backend]
+1. **State Management**: All agents must work with the LangGraph state schema
+2. **Tool Integration**: Use LangChain tool decorators for external API calls
+3. **Memory Integration**: Ensure agents properly utilize session state persistence
+4. **Error Handling**: Implement graceful fallbacks for agent failures
 
-ios/ or android/
-└── [platform-specific structure]
-```
+### RAG Pipeline Development
+
+The RAG system uses ChromaDB for vector storage:
+- Document ingestion scripts should be placed in `scripts/ingest_data.ts`
+- Use RecursiveCharacterTextSplitter for text processing
+- Store embeddings in ChromaDB collections
+- Create retrieval chains using LangChain's `createRetrievalChain`
+
+### MCP Integration
+
+MCP (Model Context Protocol) integration requires:
+- Client implementation in `lib/mcp/client.ts`
+- Tool wrappers that execute MCP actions
+- Proper error handling for MCP server communication failures
+
+### Real-time Features
+
+The application uses Server-Sent Events (SSE) for streaming responses:
+- API routes should implement SSE endpoints for real-time agent communication
+- Frontend components use EventSource for consuming SSE streams
+- Proper cleanup of EventSource connections is required
 
 ## Working with Claude Code
 

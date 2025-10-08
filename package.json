@@ -12,7 +12,10 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "specify:create": "powershell -ExecutionPolicy Bypass -File .specify/scripts/powershell/create-new-feature.ps1",
+    "specify:plan": "powershell -ExecutionPolicy Bypass -File .specify/scripts/powershell/setup-plan.ps1",
+    "specify:check": "powershell -ExecutionPolicy Bypass -File .specify/scripts/powershell/check-prerequisites.ps1 -Json"
   },
   "repository": {
     "type": "git",
@@ -30,7 +33,7 @@
     "@langchain/core": "^0.3.78",
     "@langchain/langgraph": "^0.4.9",
     "axios": "^1.12.2",
-    "chromadb": "^3.0.17",
+    "chromadb": "^1.8.4",
     "langchain": "^0.3.35",
     "next": "^15.5.4",
     "react": "^19.2.0",

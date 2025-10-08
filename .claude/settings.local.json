@@ -18,7 +18,9 @@
       "Bash(npm install:*)",
       "Bash(npm search:*)",
       "Bash(npm view:*)",
-      "Bash(npx tailwindcss init:*)"
+      "Bash(npx tailwindcss init:*)",
+      "Bash(powershell:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
